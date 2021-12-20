@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin dashboard</title>
+    <th:block th:insert="fragment/head" />
+</head>
+<body class="bg-light">
+<th:block th:insert="admin/common/header" />
+<div class="container-fluid">
+    <div class="row">
+        <th:block th:insert="admin/common/aside" />
+        <main class="col col-lg-10 p-4">
+            <h2>User management</h2>
+
+            <section class="bg-white mt-4 p-4">
+                <div class="mb-3 d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary">
+                        <a class="text-white text-decoration-none" href="/admin/users/add">Add new</a>
+                    </button>
+                    <form class="row g-3" action="/admin/users">
+                        <div class="col-auto">
+                            <input type="search" name="keyword" th:value="${param.keyword}" class="form-control" placeholder="Enter your keyword">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <p th:if="${param.addSuccess}" class="alert-success p-2 mt-3 mb-3">
+                    Create user success
+                </p>
+                <p th:if="${param.updateSuccess}" class="alert-success p-2 mt-3 mb-3">
+                    Update user success
+                </p>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Create Date</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="user, iter : ${userPage?.getContent()}">
+                    <tr>
+                        <th th:text="${userPage.pageable.getPageNumber() * userPage.pageable.getPageSize() + iter.count}" scope="row"></th>
+                        <td>
+                            <a th:href="${'/admin/users/update/' + user.id}" th:text="${user.email}"></a>
+                        </td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${T(com.base.mockproject.util.DateTimeUtil).display(user.createdDate)}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <th:block th:if="${userPage.totalPages > 1}">
+                    <div th:replace="fragment/pagination :: pagination(pageObject=${userPage},
+                                                                        activePage=${userPage.pageable?.getPageNumber()},
+                                                                        baseUrl='/admin/users')">
+                    </div>
+                </th:block>
+            </section>
+        </main>
+    </div>
+</div>
+<footer></footer>
+</body>
+</html>

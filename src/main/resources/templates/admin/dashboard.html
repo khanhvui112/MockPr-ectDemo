@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin dashboard</title>
+    <th:block th:insert="fragment/head" />
+</head>
+<body class="bg-light">
+    <th:block th:insert="admin/common/header" />
+    <div class="container-fluid">
+        <div class="row">
+            <th:block th:insert="admin/common/aside" />
+            <main class="col col-lg-10 p-4">
+                <h2>Dashboad</h2>
+            </main>
+        </div>
+    </div>
+    <footer></footer>
+</body>
+</html>

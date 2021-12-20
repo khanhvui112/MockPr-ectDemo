@@ -1,0 +1,16 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;database=base_project
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: sa
+    password: FaTraining2021
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+application:

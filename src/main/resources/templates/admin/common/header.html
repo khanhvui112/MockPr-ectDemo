@@ -1,0 +1,16 @@
+<header class="bg-white" xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <a href="/admin/dashboard" class="navbar-brand text-primary"><strong>Base project</strong></a>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="user-action" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span th:text="${session.user_login_info?.email}"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="user-action">
+                    <li><a class="dropdown-item" href="#">User Profile</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

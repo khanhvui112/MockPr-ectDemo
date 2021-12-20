@@ -1,0 +1,26 @@
+pizsoft:
+  client-app:
+    name: 'Mock project'
+
+api-version: v1
+api-prefix-path: /api/${api-version}
+
+spring:
+  profiles.active: local
+  jpa:
+    open-in-view: false
+  data:
+    rest:
+      detection-strategy: ANNOTATED
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+mybatis:
+  mapper-locations: classpath:sql/*.xml
+  type-aliases-package: com.pizsoft.winzone.blog.model
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30

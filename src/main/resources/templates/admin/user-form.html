@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin dashboard</title>
+    <th:block th:insert="fragment/head" />
+</head>
+<body class="bg-light">
+<th:block th:insert="admin/common/header" />
+<div class="container-fluid">
+    <div class="row">
+        <th:block th:insert="admin/common/aside" />
+        <main class="col col-lg-10 p-4">
+            <h2 th:text="${targetUpdateId != null ? 'Update user' : 'Add user'}"></h2>
+
+            <section class="bg-white mt-4 p-4">
+                <form th:action="${targetUpdateId != null ? '/admin/users/' + targetUpdateId : '/admin/users'}"
+                      th:object="${userFormDataDto}" method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address <span class="label-required">*</span></label>
+                        <th:block th:if="${targetUpdateId}">
+                            <div class="fw-bold" th:text="${userFormDataDto.email}"></div>
+                            <input th:field="*{email}" type="hidden">
+                        </th:block>
+                        <th:block th:unless="${targetUpdateId}">
+                            <input th:field="*{email}" class="form-control" id="email" placeholder="Please input your email">
+                        </th:block>
+                        <div class="error mt-2" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input th:field="*{firstName}" class="form-control" id="firstName" placeholder="Please input your first name">
+                        <div class="error mt-2" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input th:field="*{lastName}" class="form-control" id="lastName" placeholder="Please input your first name">
+                        <div class="error mt-2" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Role <span class="label-required">*</span></label>
+                        <select class="form-select" th:field="*{role}">
+                            <th:block th:each="role : ${T(com.base.mockproject.security.MasterRoleEnum).values()}">
+                                <option th:value="${role.name()}" th:label="${role.name()}"></option>
+                            </th:block>
+                        </select>
+                        <div class="error mt-2" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-secondary">
+                            <a class="text-white text-decoration-none" href="/admin/users">Back</a>
+                        </button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</div>
+<footer></footer>
+</body>
+</html>

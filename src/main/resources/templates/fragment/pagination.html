@@ -1,0 +1,21 @@
+<nav xmlns:th="http://www.thymeleaf.org"
+     th:fragment="pagination">
+    <ul class="pagination">
+        <th:block th:if="${activePage > 0}">
+            <li class="page-item"><a class="page-link" th:href="@{${baseUrl}(page=${activePage - 1})}">Previous</a></li>
+        </th:block>
+
+        <th:block th:each="page : ${#numbers.sequence(1, pageObject.totalPages)}">
+            <li class="page-item"
+                th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}"
+                th:classappend="${activePage == page - 1 ? 'active' : ''}">
+                <a class="page-link"
+                   th:href="@{''(page=${page - 1},keyword=${param.keyword})}"
+                   th:text="${page}"></a>
+            </li>
+        </th:block>
+        <th:block th:if="${activePage < pageObject.totalPages - 1}">
+            <li class="page-item"><a class="page-link" th:href="@{${baseUrl}(page=${activePage + 1})}">Next</a></li>
+        </th:block>
+    </ul>
+</nav>

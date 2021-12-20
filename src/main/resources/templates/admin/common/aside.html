@@ -1,0 +1,13 @@
+<aside class="col col-lg-2 bg-white pt-4 px-0 py-0" style="height: calc(100vh - 56px);"
+       xmlns:th="http://www.thymeleaf.org">
+    <nav>
+        <ul class="ist-group list-group-flush px-0 py-0">
+            <th:block th:each="menu : ${T(com.base.mockproject.util.MenuUtil).getAdminMenu()}">
+                <a th:href="${menu.getUrl()}" class="list-group-item list-group-item-action"
+                   th:classappend="${#httpServletRequest.requestURI.startsWith(menu.getUrl())} ? 'active' : ''">
+                    <span th:text="${menu.getDisplay()}"></span>
+                </a>
+            </th:block>
+        </ul>
+    </nav>
+</aside>
